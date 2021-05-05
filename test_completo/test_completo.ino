@@ -3,10 +3,18 @@
 #include <EasyBuzzer.h>
 #include <TB6612_ESP32.h>
 
-#define PIXEL_PIN_1 13  // Digital IO pin connected to the NeoPixels.
-#define PIXEL_PIN_2 15  // Digital IO pin connected to the NeoPixels.
-#define PIXEL_COUNT 4 // Number of NeoPixels
+#define PIXEL_PIN_1 13 // Digital IO pin connected to the NeoPixels.
+#define PIXEL_PIN_2 15 // Digital IO pin connected to the NeoPixels.
+#define PIXEL_COUNT 4  // Number of NeoPixels
+
+//BUZZER
 #define BUZZER_PIN 27
+
+//ULTRASONICO
+#define TRIGGER_PIN 17
+#define ECHO_PIN 16
+long duration; // variable for the duration of sound wave travel
+int distance;  // variable for the distance measurement
 
 //MOTOR1
 #define AIN1 32
@@ -31,19 +39,23 @@ void setup()
 {
     Serial.begin(115200);
     Serial.println("Comenzando test");
-    EasyBuzzer.setPin(BUZZER_PIN);  //Initialize buzzer
+    EasyBuzzer.setPin(BUZZER_PIN); //Initialize buzzer
     pinMode(BUZZER_PIN, OUTPUT);
+
+    pinMode(TRIGGER_PIN, OUTPUT); // Sets the TRIGGER_PIN as an OUTPUT
+    pinMode(ECHO_PIN, INPUT);  // Sets the ECHO_PIN as an INPUT
 }
 
 void loop()
 {
     testNeoPixel();
-    //testBuzzer();
+    testBuzzer();
     testMotores();
 }
 
 void testNeoPixel()
 {
+    Serial.println("Test de Neopixel...");
     neopixelLEDs1.clear();
     neopixelLEDs2.clear();
     for (int i = 0; i < PIXEL_COUNT; i++)
@@ -78,19 +90,17 @@ void testNeoPixel()
     delay(500);
 }
 
-void testBuzzer(){
-    EasyBuzzer.beep(840);    // Frequency in hertz(HZ).
-    delay(500);
+void testBuzzer()
+{
+    Serial.println("Test de Buzzer...");
+    EasyBuzzer.beep(840); // Frequency in hertz(HZ).
+    delay(1000);
     EasyBuzzer.stopBeep();
-    delay(250);
-    EasyBuzzer.beep(840);    // Frequency in hertz(HZ).
-    delay(500);
-    EasyBuzzer.stopBeep();
-    delay(250);
 }
 
-void testMotores(){
-
+void testMotores()
+{
+    Serial.println("Test de Motores...");
     Serial.println("front");
     forward(motor1, motor2, 250);
     delay(1000);
@@ -100,6 +110,51 @@ void testMotores(){
     back(motor1, motor2, -250);
     delay(1000);
     brake(motor1, motor2);
+}
 
+void testCNY()
+{
+    Serial.println("Test CNY...");
+    int cont = 0;
+    while (cont < 400)
+    {
+        Serial.print("Sensor0: ");
+        Serial.println(analogRead(36));
+        Serial.print("Sensor1: ");
+        Serial.println(analogRead(34));
+        Serial.print("Sensor2: ");
+        Serial.println(analogRead(39));
+        Serial.print("Sensor3: ");
+        Serial.println(analogRead(35));
 
+        cont++;
+        delay(10);
+    }
+}
+
+void testUltrasonico()
+{
+    Serial.println("Test Ultrasonico...");
+    int cont = 0;
+    while (cont < 400)
+    {
+        // Clears the TRIGGER_PIN condition
+        digitalWrite(TRIGGER_PIN, LOW);
+        delayMicroseconds(2);
+        // Sets the TRIGGER_PIN HIGH (ACTIVE) for 10 microseconds
+        digitalWrite(TRIGGER_PIN, HIGH);
+        delayMicroseconds(10);
+        digitalWrite(TRIGGER_PIN, LOW);
+        // Reads the ECHO_PIN, returns the sound wave travel time in microseconds
+        duration = pulseIn(ECHO_PIN, HIGH);
+        // Calculating the distance
+        distance = duration * 0.034 / 2; // Speed of sound wave divided by 2 (go and back)
+        // Displays the distance on the Serial Monitor
+        Serial.print("Distance: ");
+        Serial.print(distance);
+        Serial.println(" cm");
+
+        cont++;
+        delay(10);
+    }
 }
