@@ -12,6 +12,7 @@ Adafruit_NeoPixel neopixelLEDs2(PIXEL_COUNT, PIXEL_PIN_2, NEO_GRB + NEO_KHZ800);
 
 //Variables
 int color = 0;
+int flag = 0;
 
 void setup()
 {
@@ -23,10 +24,14 @@ void loop()
 {
     if (color == 255)
     {
-        color = 0;
+        flag = 1;
+    }else if (color == 0){
+        flag = 0;
     }
+
+    (flag == 0) ? color += 5: color -= 5;
     
-    color = color + 5;
+    
     neopixelLEDs2.clear();
     neopixelLEDs1.clear();
     for (int i = 0; i < PIXEL_COUNT; i++)
