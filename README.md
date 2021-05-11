@@ -1,6 +1,7 @@
-# Guia de Implementación de Libreria BSEC de Bosch en Arduino IDE
+# Proyecto Balam 2021
 
-## Pasos A Seguir:
+## Guia de Instalación de Tarjeta ESP32 en Arduino IDE
+### Pasos A Seguir:
 1. Instalar Arduino IDE (no usar el zip)
 2. Agregar el siguiente URL al Gestor de URLs Adicionales de Tarjetas:
 `https://dl.espressif.com/dl/package_esp32_index.json`
