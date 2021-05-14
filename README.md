@@ -36,8 +36,41 @@ En algunos casos nuestra PC no es capaz de reconocer el dispositivo USB que noso
 
 # Mapeo de Pines
 
-## Balam Board V2.1 - NeoPixels
+## Balam Board V2.1 
+
+### NeoPixel
 Dispositivo | GPIO 
 --- | --- 
 NeoPixel 1 | 15 
 NeoPixel 2 | 13 
+
+### Buzzer
+Dispositivo | GPIO 
+--- | --- 
+Buzzer | 27 
+
+### Ultrasónico
+Dispositivo | GPIO 
+--- | --- 
+VCC | 5V
+GND | Ground
+Trigger | 17
+Echo | 16
+
+### Comunicación I2C
+Dispositivo | GPIO 
+--- | --- 
+VCC | 3V3
+GND | Ground
+SCL | 22
+SDA | 21
+
+### Comunicación SPI
+Dispositivo | GPIO 
+--- | --- 
+VCC | 3V3
+GND | Ground
+CLK | 18
+CS | 5
+SDI | 19
+SDO | 23
