@@ -33,3 +33,11 @@ En algunos casos nuestra PC no es capaz de reconocer el dispositivo USB que noso
 3. Brindar permisos de Administrador	
 4. Click en la opción ***Siguiente***
 5. Click en la opción ***Finalizar***
+
+# Mapeo de Pines
+
+## Balam Board V2.1 - NeoPixels
+Dispositivo | GPIO 
+--- | --- 
+NeoPixel 1 | 15 
+NeoPixel 2 | 13 
