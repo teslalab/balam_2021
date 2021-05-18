@@ -1,45 +1,39 @@
-
-// Libreria para usar las propiedades de conexión WiFi
-#include <Wire.h>         //Conexión de dispositivos I2C
+#include <Wire.h> //I2C
 #include <Adafruit_NeoPixel.h>
 
-#define PIXEL_PIN_1 15  // Digital IO pin connected to the NeoPixels.
-#define PIXEL_PIN_2 13  // Digital IO pin connected to the NeoPixels.
-#define PIXEL_COUNT 4 // Number of NeoPixels
+#define PIXEL_COUNT 4
+#define PIXEL_PIN_1 15
+#define PIXEL_PIN_2 13
 
-Adafruit_NeoPixel neopixelLEDs1(PIXEL_COUNT, PIXEL_PIN_1, NEO_GRB + NEO_KHZ800);
-Adafruit_NeoPixel neopixelLEDs2(PIXEL_COUNT, PIXEL_PIN_2, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel neopixel1(PIXEL_COUNT, PIXEL_PIN_1, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel neopixel2(PIXEL_COUNT, PIXEL_PIN_2, NEO_GRB + NEO_KHZ800);
 
-//Variables
-int color = 0;
-int flag = 0;
 
-void setup()
-{
-    Serial.begin(115200);
-    Wire.begin(21, 22); // Pines I2C del ESP32
+void setup() {
+  // put your setup code here, to run once:
+  Wire.begin(21, 22); //Pines I2C de nuestro ESP32
 }
 
-void loop()
-{
-    if (color == 255)
-    {
-        flag = 1;
-    }else if (color == 0){
-        flag = 0;
-    }
+void loop() {
 
-    (flag == 0) ? color += 5: color -= 5;
-    
-    
-    neopixelLEDs2.clear();
-    neopixelLEDs1.clear();
-    for (int i = 0; i < PIXEL_COUNT; i++)
-    {
-        neopixelLEDs1.setPixelColor(i, neopixelLEDs1.Color(color, 0, 0));
-        neopixelLEDs2.setPixelColor(i, neopixelLEDs2.Color(0, color, 0));
-    }
-    neopixelLEDs1.show();
-    neopixelLEDs2.show();
-    delay(20);
+  //neopixel1 U0 - U3
+  //neopixel2 U4 - U7
+                        //indice, color
+  for(int i = 0; i < PIXEL_COUNT; i++){
+    neopixel1.setPixelColor(i, neopixel1.Color(25,0,0));
+  }
+  neopixel2.setPixelColor(0, neopixel2.Color(0,0,25));
+  
+  neopixel1.show();
+  neopixel2.show();
+
+  delay(1000);
+  
+  neopixel1.clear();
+  neopixel2.clear();
+  neopixel1.show();
+  neopixel2.show();
+
+  delay(1000);
+  
 }
