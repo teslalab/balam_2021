@@ -19,24 +19,15 @@ Motor motor2 = Motor(BIN1, BIN2, PWMB, offsetB, 0, 5000, 8, 2);
 
 void setup()
 {
-    Serial.begin(115200);
 }
 
 void loop()
 {
-    testMotores();
-}
-
-void testMotores()
-{
-    Serial.println("Test de Motores...");
-    Serial.println("front");
-    forward(motor1, motor2, 250);
-    delay(1000);
-    brake(motor1, motor2);
-
-    Serial.println("back");
-    back(motor1, motor2, -250);
-    delay(1000);
-    brake(motor1, motor2);
+  forward(motor1, motor2, 100);
+  delay(1000);
+  brake(motor1, motor2);
+  
+  back(motor1, motor2, 100);
+  delay(1000);
+  brake(motor1, motor2);
 }
