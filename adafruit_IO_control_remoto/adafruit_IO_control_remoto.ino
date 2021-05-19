@@ -42,8 +42,6 @@ void setup() {
   // wait for serial monitor to open
   while(! Serial);
 
-  Serial.println("HTU21D-F test");
-
   // connect to io.adafruit.com
   Serial.print("Connecting to Adafruit IO");
   io.connect();
