@@ -12,7 +12,6 @@
 AdafruitIO_WiFi io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS);
 
 
-
 AdafruitIO_Feed *adelante = io.feed("forward");
 AdafruitIO_Feed *atras = io.feed("back");
 AdafruitIO_Feed *izquierda = io.feed("left");
