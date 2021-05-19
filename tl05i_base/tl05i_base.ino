@@ -1,42 +1,42 @@
 #include <Wire.h>
 #include "Adafruit_SHT31.h"
- 
+
 Adafruit_SHT31 sensor = Adafruit_SHT31();
- 
- 
-void setup() 
-{
+
+void setup() {
+  // put your setup code here, to run once:
   Serial.begin(115200);
-  if (! sensor.begin(0x44)) 
-  {
-    Serial.println("Couldn't find SHT31");
-    while (1) delay(1);
+  if(sensor.begin(0x44)){
+    Serial.println("Sensor encontrado");
+  }else{
+    Serial.println("Sensor NO encontrado");
+    while(1){
+      delay(10);
+    }
   }
 }
- 
- 
-void loop() 
-{
-  float t = sensor.readTemperature();
-  float h = sensor.readHumidity();
- 
-  if (! isnan(t)) 
-  {
-    Serial.print("Temp *C = "); Serial.println(t);
-  } 
-  else 
-  { 
-    Serial.println("Failed to read temperature");
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  float temp = sensor.readTemperature();
+  float hume = sensor.readHumidity();
+
+  //isnan -> is not a number?
+  if(isnan(temp)){
+    Serial.println("Error al obtener temperatura");
+  }else{
+    Serial.print("Temperatura *C = ");
+    Serial.println(temp);
   }
- 
-  if (! isnan(h)) 
-  {
-    Serial.print("Hum. % = "); Serial.println(h);
-  } 
-  else 
-  { 
-    Serial.println("Failed to read humidity");
+
+  //! isnan -> is not not a number? -> is a number?
+  if(!isnan(hume)){
+    Serial.print("Humedad % = ");
+    Serial.println(hume);
+  }else{
+    Serial.println("Error al obtener humedad");
   }
   Serial.println();
   delay(1000);
+  
 }
