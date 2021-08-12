@@ -1,5 +1,6 @@
 # Proyecto Balam 2021
-
+![](/img/kit.png)
+![](/img/logos.png)
 ## Guia de Instalación de Tarjeta ESP32 en Arduino IDE
 ### Pasos A Seguir:
 1. Instalar Arduino IDE (no usar el zip)
